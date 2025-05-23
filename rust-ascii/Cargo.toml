@@ -1,0 +1,28 @@
+[package]
+name = "rust-ascii"
+version = "0.1.0"
+edition = "2021"
+
+[dependencies]
+glium = "0.34.0"
+winit = "0.29.15"
+image = "0.24"
+rand = "0.8"
+msdfont = {git = "https://github.com/Blatko1/msdfont.git"}
+rectangle-pack = "0.4"
+google-fonts = "0.1.5"
+tokio = { version = "1", features = ["full"] }
+async-timer = { version = "0.7", features = ["tokio_on"] }
+async-trait = "0.1"
+futures = "0.3"
+
+ttf-parser = "0.15.2"
+mint = "0.5.9"
+msdf = "0.2.1"
+
+serde = { version = "1.0", features = ["derive"] }
+clap = {version = "4", features = ["derive"]}
+raw_sync = "0.1.5"
+ringbuf = "0.4.8"
+shared_memory = "0.12.4"
+atomic-wait = "1.1.0"
