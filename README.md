@@ -1,4 +1,6 @@
-# SeniorProject
+# Rust ASCII Animation Engine
+
+This repository implements a high-performance, async-driven ASCII animation engine in Rust running code on the GPU using an OpenGL wrapper. It leverages modern Rust features, including the [`tokio`](https://tokio.rs/) async runtime, and is designed around a client-server architecture using shared memory for efficient communication between processes.
 
 ## Installation
 
@@ -19,6 +21,7 @@ This repository implements a high-performance, async-driven ASCII animation engi
 
 ## Features
 
+- **GPU Based Rendering with OpenGL** Animations are ran on the GPU to ensure maximum performance
 - **Async/await with Tokio:** Animations and entity updates are managed using Rust's async/await syntax, powered by the Tokio runtime. This allows for smooth, non-blocking animation updates and efficient use of system resources.
 - **Client-Server Architecture:** The engine uses shared memory (`shared_memory` crate) to synchronize state between a server (animation producer) and one or more clients (renderers or consumers). The [`SharedEntityBuffer`](src/entity/shared_entity_buffer.rs) struct manages a lock-protected buffer of entities for concurrent access.
 - **Composable Animations:** Animations are built by composing entities and animation traits (e.g., `Translate`, `FadingTrail`, `ColrRand`). Each animation is typically run as an async task, allowing for complex, concurrent visual effects.
@@ -31,6 +34,7 @@ This repository implements a high-performance, async-driven ASCII animation engi
 - **Server:** Initializes shared memory, loads fonts, and spawns animation tasks. It writes animated entities into the shared buffer.
 - **Client:** Reads from the shared buffer and renders the ASCII art to the screen using OpenGL (via Glium).
 - **Synchronization:** The shared buffer uses atomic locks and flags to ensure safe concurrent access.
+- **Virtualization:** We use an virtual timing system to minimize lag in our system
   
 # Building Animations
 
@@ -63,9 +67,11 @@ See `src/example_animations` for many examples, including:
 - [Glium](https://github.com/glium/glium) for OpenGL rendering
 - Clang and CMake for font rasterization (see `README.md` for details)
 
-## Build and Run
+## Running
 
 The main entry point is `main.rs`, which sets up the shared memory and launches the animation system.
+
+The server will start when running the system, creating the smem handle file. Any other processes that are started will act as servers. Animation code should be placed in the client loop portion of the code.
 
 # Example Animations
 
